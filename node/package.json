@@ -1,6 +1,6 @@
 {
   "name": "@libertyti/ai",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Cliente do Liberty AI Gateway.",
   "license": "MIT",
   "author": "Liberty TI",
@@ -39,8 +39,9 @@
     "build": "tsup",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run test",
-    "prepublishOnly": "npm run check && npm run build"
+    "check": "npm run typecheck && npm run test && npm run build && npm run test:dist",
+    "prepublishOnly": "npm run check",
+    "test:dist": "node scripts/smoke-dist.mjs"
   },
   "dependencies": {
     "openai": "^6.0.0",

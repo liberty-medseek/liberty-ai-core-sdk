@@ -10,7 +10,12 @@
  * que identifica o cliente nos logs do gateway.
  */
 
-import OpenAI, { type ClientOptions } from 'openai';
+// Export NOMEADO de proposito. O `module.exports` do openai em CJS e uma
+// funcao wrapper, e a classe fica em `.default`. O interop do esbuild aponta o
+// default do bundle para o wrapper, entao `extends` no default faz o `super()`
+// devolver um OpenAI pronto, que substitui o `this` e apaga esta subclasse.
+// Com o nomeado, CJS e ESM resolvem a mesma classe.
+import { OpenAI, type ClientOptions } from 'openai';
 
 import { MissingAPIKey } from './errors.js';
 import { transcribeStream, type TranscribeOptions } from './realtime.js';
