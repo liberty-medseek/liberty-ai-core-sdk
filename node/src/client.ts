@@ -21,6 +21,9 @@ import { MissingAPIKey } from './errors.js';
 import { transcribeStream, type TranscribeOptions } from './realtime.js';
 import { VERSION } from './version.js';
 
+// Endereço de produção. Trocar este valor é mudança de contrato: sai versão
+// nova dos dois pacotes, e o console troca junto. Quem instalou a versão antiga
+// continua batendo no endereço antigo até atualizar.
 export const BASE_URL = 'https://gateway.libertyti.com.br/v1';
 
 export const ENV_API_KEY = 'LIBERTY_API_KEY';

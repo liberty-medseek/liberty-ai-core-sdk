@@ -21,6 +21,9 @@ from ._version import __version__
 
 __all__ = ["AsyncLiberty", "Liberty", "BASE_URL"]
 
+# Endereço de produção. Trocar este valor é mudança de contrato: sai versão
+# nova dos dois pacotes, e o console troca junto. Quem instalou a versão antiga
+# continua batendo no endereço antigo até atualizar.
 BASE_URL = "https://gateway.libertyti.com.br/v1"
 
 ENV_API_KEY = "LIBERTY_API_KEY"
