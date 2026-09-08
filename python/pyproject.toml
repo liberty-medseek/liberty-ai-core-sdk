@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "liberty-ai"
+description = "Cliente do Liberty AI Gateway."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Liberty TI" }]
+keywords = ["liberty", "gateway", "llm", "openai-compatible"]
+dynamic = ["version"]
+# `websockets` entra aqui, e não num extra, para a sessão ao vivo funcionar
+# com um `pip install` só. São ~200 kB puros em Python, sem binário.
+dependencies = ["openai>=2,<3", "websockets>=13"]
+
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://github.com/liberty-medseek/liberty-ai-core-sdk"
+Source = "https://github.com/liberty-medseek/liberty-ai-core-sdk/tree/main/python"
+Changelog = "https://github.com/liberty-medseek/liberty-ai-core-sdk/blob/main/python/CHANGELOG.md"
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.24", "httpx>=0.27"]
+
+[tool.hatch.version]
+path = "src/liberty/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/liberty"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "README.md", "CHANGELOG.md", "LICENSE", "pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "strict"

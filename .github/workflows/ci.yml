@@ -1,0 +1,89 @@
+# Testa em todo push e PR. Publica os dois pacotes numa tag `vX.Y.Z`.
+#
+# Os pacotes andam em lockstep: uma tag publica os dois, e o job falha se a
+# versao de qualquer um divergir da tag. Custa uma release identica no pacote
+# que nao mudou, e paga com numero de versao alinhado entre as duas linguagens.
+name: ci
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: python
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -e '.[dev]'
+      - run: pytest -q
+
+  node:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: node
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: node/package-lock.json
+      - run: npm ci
+      - run: npm run check
+
+  publicar-python:
+    needs: [python, node]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    # Trusted publishing do PyPI: sem token guardado no repositorio.
+    permissions:
+      id-token: write
+    defaults:
+      run:
+        working-directory: python
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: a tag tem de bater com a versao do pacote
+        run: test "v$(grep -oE '[0-9]+\.[0-9]+\.[0-9]+' src/liberty/_version.py)" = "$GITHUB_REF_NAME"
+      - run: pip install build
+      - run: python -m build
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: python/dist
+
+  publicar-node:
+    needs: [python, node]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    # `id-token` alimenta o provenance do npm, que amarra o pacote a este commit.
+    permissions:
+      id-token: write
+    defaults:
+      run:
+        working-directory: node
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          cache: npm
+          cache-dependency-path: node/package-lock.json
+      - name: a tag tem de bater com a versao do pacote
+        run: test "v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
+      - run: npm ci
+      - run: npm publish --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
