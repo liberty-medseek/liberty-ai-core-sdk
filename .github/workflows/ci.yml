@@ -1,14 +1,17 @@
-# Testa em todo push e PR. Publica os dois pacotes numa tag `vX.Y.Z`.
+# Testa em todo push e PR. Publica um pacote por tag:
 #
-# Os pacotes andam em lockstep: uma tag publica os dois, e o job falha se a
-# versao de qualquer um divergir da tag. Custa uma release identica no pacote
-# que nao mudou, e paga com numero de versao alinhado entre as duas linguagens.
+#   python-vX.Y.Z   publica liberty-ai no PyPI
+#   node-vX.Y.Z     publica @libertyti/ai no npm
+#
+# Tag por pacote, e nao uma so para os dois, porque os registries se configuram
+# em momentos diferentes e uma versao nem sempre muda os dois. O job falha se a
+# versao do pacote divergir da tag, entao tag errada nao vira release errado.
 name: ci
 
 on:
   push:
     branches: [main]
-    tags: ['v*']
+    tags: ['python-v*', 'node-v*']
   pull_request:
 
 jobs:
@@ -47,7 +50,7 @@ jobs:
 
   publicar-python:
     needs: [python, node]
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/python-v')
     runs-on: ubuntu-latest
     # Trusted publishing do PyPI: sem token guardado no repositorio.
     permissions:
@@ -61,7 +64,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: a tag tem de bater com a versao do pacote
-        run: test "v$(grep -oE '[0-9]+\.[0-9]+\.[0-9]+' src/liberty/_version.py)" = "$GITHUB_REF_NAME"
+        run: test "python-v$(grep -oE '[0-9]+\.[0-9]+\.[0-9]+' src/liberty/_version.py)" = "$GITHUB_REF_NAME"
       - run: pip install build
       - run: python -m build
       - uses: pypa/gh-action-pypi-publish@release/v1
@@ -70,7 +73,7 @@ jobs:
 
   publicar-node:
     needs: [python, node]
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/node-v')
     runs-on: ubuntu-latest
     # `id-token` alimenta o provenance do npm, que amarra o pacote a este commit.
     permissions:
@@ -87,7 +90,7 @@ jobs:
           cache: npm
           cache-dependency-path: node/package-lock.json
       - name: a tag tem de bater com a versao do pacote
-        run: test "v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
+        run: test "node-v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
       - run: npm ci
       - run: npm publish --provenance
         env:

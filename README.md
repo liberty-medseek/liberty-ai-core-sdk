@@ -58,10 +58,14 @@ tempo limite e saída de emergência.
 
 ## Versão
 
-Os dois pacotes andam em lockstep. Uma tag `vX.Y.Z` publica os dois, e o CI
-recusa a tag se a versão de qualquer um divergir dela. Isso publica uma release
-idêntica no pacote que não mudou, e em troca `liberty-ai 0.2.0` e
-`@libertyti/ai 0.2.0` sempre têm as mesmas funcionalidades.
+Cada pacote tem a própria tag, e as duas versões costumam andar juntas:
+
+| Tag | Publica |
+|---|---|
+| `python-vX.Y.Z` | `liberty-ai` no PyPI |
+| `node-vX.Y.Z` | `@libertyti/ai` no npm |
+
+O CI recusa a tag se a versão do pacote divergir dela.
 
 ## Desenvolvimento
 
@@ -73,9 +77,10 @@ cd node   && npm install && npm run check
 ## Publicar
 
 ```bash
-git tag v0.1.0 && git push origin v0.1.0
+git tag node-v0.1.0   && git push origin node-v0.1.0
+git tag python-v0.1.0 && git push origin python-v0.1.0
 ```
 
-O GitHub Actions testa os dois, confere a tag contra as versões e publica. O
-PyPI usa trusted publishing, então não há token dele no repositório. O npm usa
-o secret `NPM_TOKEN` e sai com provenance.
+O GitHub Actions testa os dois pacotes, confere a tag contra a versão e publica
+só o que a tag nomeia. O PyPI usa trusted publishing, então não há token dele no
+repositório. O npm usa o secret `NPM_TOKEN` e sai com provenance.
