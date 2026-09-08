@@ -92,6 +92,21 @@ jobs:
       - name: a tag tem de bater com a versao do pacote
         run: test "node-v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
       - run: npm ci
+      # Passos separados de proposito: o log do Actions precisa de auth para ser
+      # lido, mas o nome do passo que falha aparece na API publica. Cada um
+      # isola uma causa.
+      - name: diagnostico - o secret NPM_TOKEN chegou
+        run: test -n "$NODE_AUTH_TOKEN" && echo "NPM_TOKEN presente, ${#NODE_AUTH_TOKEN} caracteres"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: diagnostico - o token autentica no registry
+        run: npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: diagnostico - o token enxerga a org libertyti
+        run: npm org ls libertyti
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
