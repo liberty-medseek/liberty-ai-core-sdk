@@ -124,7 +124,7 @@ async def test_transcreve_dois_trechos_e_termina() -> None:
 @pytest.mark.asyncio
 async def test_url_leva_intent_e_nao_leva_model() -> None:
     """A OpenAI recusa `model=` na query desta rota, e o gateway resolve o
-    modelo pelo apelido de dentro da sessão."""
+    modelo pelo nome de dentro da sessão."""
     gateway = GatewayDeMentira()
     servidor, cliente = await _com_gateway(gateway)
     try:
@@ -143,7 +143,7 @@ async def test_url_leva_intent_e_nao_leva_model() -> None:
 
 
 @pytest.mark.asyncio
-async def test_sessao_leva_apelido_idioma_e_corte_manual() -> None:
+async def test_sessao_leva_modelo_idioma_e_corte_manual() -> None:
     gateway = GatewayDeMentira()
     servidor, cliente = await _com_gateway(gateway)
     try:

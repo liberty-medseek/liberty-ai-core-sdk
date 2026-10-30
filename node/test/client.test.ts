@@ -195,7 +195,7 @@ describe('empacotamento', () => {
 });
 
 describe('exemplos do README', () => {
-  it('lista os apelidos que a chave alcança', async () => {
+  it('lista os modelos que a chave alcança', async () => {
     const vistas: string[] = [];
     const client = new Liberty({
       apiKey: CHAVE,

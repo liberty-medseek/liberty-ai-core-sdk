@@ -20,7 +20,7 @@ const CONCLUIDO = 'conversation.item.input_audio_transcription.completed';
 const FALHOU = 'conversation.item.input_audio_transcription.failed';
 
 export type TranscribeOptions = {
-  /** Apelido do gateway, por exemplo `liberty-<apelido-de-transcricao>`. */
+  /** Nome do modelo de transcrição ao vivo, por exemplo `<modelo-de-transcricao>`. */
   model: string;
   language?: string;
   prompt?: string;

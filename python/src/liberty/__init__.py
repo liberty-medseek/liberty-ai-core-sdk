@@ -5,7 +5,7 @@
     client = Liberty()
 
     resposta = client.responses.create(
-        model="liberty-<apelido>",
+        model="<modelo>",
         input="Resuma o texto abaixo em uma frase.",
     )
     print(resposta.output_text)

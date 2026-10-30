@@ -29,7 +29,7 @@ class TranscriptionFailed(LibertyError):
 _ACOES: dict[str, str] = {
     "key_model_access_denied": (
         "A chave deste projeto não tem acesso ao modelo pedido. "
-        "Libere o apelido na tela Chaves do console."
+        "Libere o modelo na tela Chaves do console."
     ),
     "budget_exceeded": (
         "O projeto bateu o teto de gasto da janela atual. "

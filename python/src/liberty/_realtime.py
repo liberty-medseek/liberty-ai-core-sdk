@@ -39,7 +39,7 @@ async def transcribe_stream(
     fechado: o cliente manda e pede a transcrição daquele trecho, então quem
     decide onde cortar é quem produz o áudio. Corte na pausa da fala.
 
-        async for texto in client.transcribe_stream(pedacos, model="liberty-<apelido-de-transcricao>"):
+        async for texto in client.transcribe_stream(pedacos, model="<modelo-de-transcricao>"):
             print(texto, end="", flush=True)
 
     Levanta `TranscriptionFailed` se a sessão recusar o áudio.
@@ -51,7 +51,7 @@ async def transcribe_stream(
         transcricao["prompt"] = prompt
 
     # `intent=transcription` no lugar de `model=`: esta rota recusa modelo na
-    # query, e quem resolve o modelo é o apelido dentro da sessão.
+    # query, e quem resolve o modelo é o nome dentro da sessão.
     async with client.realtime.connect(extra_query={"intent": "transcription"}) as conexao:
         await conexao.session.update(
             session=cast(

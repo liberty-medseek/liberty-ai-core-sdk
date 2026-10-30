@@ -25,7 +25,7 @@ export class TranscriptionFailed extends LibertyError {}
  */
 const ACOES: Record<string, string> = {
   key_model_access_denied:
-    'A chave deste projeto não tem acesso ao modelo pedido. Libere o apelido na tela Chaves do console.',
+    'A chave deste projeto não tem acesso ao modelo pedido. Libere o modelo na tela Chaves do console.',
   budget_exceeded:
     'O projeto bateu o teto de gasto da janela atual. Aumente o teto na tela Chaves ou espere a janela virar.',
   rate_limit_error:

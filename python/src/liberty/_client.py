@@ -105,8 +105,8 @@ class _Comum:
     def realtime_url(self, *, intent: str = "transcription") -> str:
         """Endereço do WebSocket de transcrição ao vivo.
 
-        A URL não leva `?model=`: quem escolhe o modelo é o apelido
-        configurado no gateway. Passe o apelido no `session.update`.
+        A URL não leva `?model=`: quem escolhe o modelo é o nome
+        que vai no `session.update`.
         """
         return f"{_websocket(str(self.base_url))}/realtime?intent={intent}"
 
@@ -125,7 +125,7 @@ class Liberty(_Comum, OpenAI):
         from liberty import Liberty
 
         client = Liberty()
-        resposta = client.responses.create(model="liberty-<apelido>", input="Olá")
+        resposta = client.responses.create(model="<modelo>", input="Olá")
     """
 
 
@@ -144,7 +144,7 @@ class AsyncLiberty(_Comum, AsyncOpenAI):
         """Transcreve áudio ao vivo e devolve o texto em pedaços.
 
             async for texto in client.transcribe_stream(
-                pedacos, model="liberty-<apelido-de-transcricao>", language="pt"
+                pedacos, model="<modelo-de-transcricao>", language="pt"
             ):
                 print(texto, end="", flush=True)
 

@@ -80,7 +80,7 @@ export class Liberty extends OpenAI {
    * Transcreve áudio ao vivo e devolve o texto em pedaços.
    *
    *     for await (const texto of client.transcribeStream(pedacos, {
-   *       model: 'liberty-<apelido-de-transcricao>',
+   *       model: '<modelo-de-transcricao>',
    *       language: 'pt',
    *     })) {
    *       process.stdout.write(texto);
@@ -100,8 +100,8 @@ export class Liberty extends OpenAI {
   /**
    * Endereço do WebSocket de transcrição ao vivo.
    *
-   * A URL não leva `?model=`: quem escolhe o modelo é o apelido
-   * configurado no gateway. Passe o apelido no `session.update`.
+   * A URL não leva `?model=`: quem escolhe o modelo é o nome
+   * que vai no `session.update`.
    */
   realtimeURL({ intent = 'transcription' }: { intent?: string } = {}): string {
     return `${websocket(this.baseURL)}/realtime?intent=${intent}`;

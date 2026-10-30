@@ -124,7 +124,7 @@ describe('sessão ao vivo', () => {
 
   it('a URL leva intent e não leva model', async () => {
     // A OpenAI recusa `model=` na query desta rota, e o gateway resolve o
-    // modelo pelo apelido de dentro da sessão.
+    // modelo pelo nome de dentro da sessão.
     const gateway = new GatewayDeMentira();
     const client = await subir(gateway);
 
@@ -140,7 +140,7 @@ describe('sessão ao vivo', () => {
     expect(gateway.autorizacao).toBe(`Bearer ${CHAVE}`);
   });
 
-  it('a sessão leva apelido, idioma e corte manual', async () => {
+  it('a sessão leva modelo, idioma e corte manual', async () => {
     const gateway = new GatewayDeMentira();
     const client = await subir(gateway);
 

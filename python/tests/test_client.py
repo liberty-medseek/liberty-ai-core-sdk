@@ -190,7 +190,7 @@ def test_versao_bate_com_o_changelog() -> None:
     assert f"## [{__version__}]" in changelog
 
 
-def test_lista_os_apelidos_que_a_chave_alcanca() -> None:
+def test_lista_os_modelos_que_a_chave_alcanca() -> None:
     """Exemplo do README: o catálogo vivo por chave."""
     vistas: list[httpx.Request] = []
 

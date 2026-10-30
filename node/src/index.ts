@@ -6,7 +6,7 @@
  *     const client = new Liberty();
  *
  *     const resposta = await client.responses.create({
- *       model: 'liberty-<apelido>',
+ *       model: '<modelo>',
  *       input: 'Resuma o texto abaixo em uma frase.',
  *     });
  *     console.log(resposta.output_text);

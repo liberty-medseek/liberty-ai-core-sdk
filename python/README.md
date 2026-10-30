@@ -12,14 +12,14 @@ from liberty import Liberty
 client = Liberty()
 
 resposta = client.responses.create(
-    model="liberty-<apelido>",
+    model="<modelo>",
     input="Resuma o texto abaixo em uma frase.",
 )
 print(resposta.output_text)
 ```
 
-> Nos exemplos, `liberty-<apelido>` é um marcador. Os apelidos reais que a sua
-> chave alcança saem de `client.models.list()` e da tela Modelos do console.
+> Nos exemplos, `<modelo>` é um marcador. Os modelos que a sua chave alcança
+> saem de `client.models.list()` e da tela Modelos do console.
 
 O `.env` do produto tem uma linha:
 
@@ -44,18 +44,17 @@ O pacote adiciona o endereço, o nome da variável de ambiente e um cabeçalho q
 identifica o cliente nos logs do gateway. Nenhuma chamada passa por código
 nosso: ele resolve a chave e o endereço no construtor.
 
-## Apelido de modelo
+## Nome do modelo
 
-O `model` é o apelido do gateway, não o nome do modelo no provedor. Um apelido
-pode apontar para qualquer provedor que o gateway atenda, e o código do produto
-é o mesmo em todos. Trocar o provedor por trás de um apelido é mudança de
-configuração do gateway, sem deploy do produto.
+O `model` é o nome do modelo, o mesmo que ele tem no provedor, e o gateway
+decide para qual provedor mandar. O código do produto é o mesmo em todos, e
+trocar o provedor de um modelo é configuração do gateway, sem deploy do produto.
 
-O catálogo de apelidos está na tela Modelos do console.
+O catálogo está na tela Modelos do console.
 
 ## Modelos que a chave alcança
 
-O catálogo está na tela Modelos do console. Para os apelidos que uma chave
+O catálogo está na tela Modelos do console. Para os modelos que uma chave
 específica alcança, pergunte ao gateway:
 
 ```python
@@ -98,7 +97,7 @@ import openai
 import liberty
 
 try:
-    resposta = client.responses.create(model="liberty-<apelido>", input=texto)
+    resposta = client.responses.create(model="<modelo>", input=texto)
 except openai.APIStatusError as erro:
     log.error(liberty.explain(erro) or str(erro))
 ```
@@ -118,7 +117,7 @@ from liberty import AsyncLiberty
 client = AsyncLiberty()
 
 async for texto in client.transcribe_stream(
-    pedacos, model="liberty-<apelido-de-transcricao>", language="pt"
+    pedacos, model="<modelo-de-transcricao>", language="pt"
 ):
     print(texto, end="", flush=True)
 ```
@@ -138,12 +137,9 @@ montam o endereço e o cabeçalho, e o resto é seu.
 
 ## Saída de emergência
 
-O gateway é ponto único de falha. O pacote não traz bypass automático, porque o
-apelido do gateway não existe no provedor. O bypass precisa do mapa de apelido
-para modelo real, e esse mapa é do produto.
-
-Com esse mapa, a saída é um cliente do provedor, com a credencial dele no
-ambiente do produto.
+O gateway é ponto único de falha. O pacote não traz bypass automático: a saída
+é o produto trocar este cliente pelo do provedor, com a credencial dele guardada
+no ambiente só para isso. O nome do modelo é o mesmo nos dois caminhos.
 
 ## Desenvolvimento
 

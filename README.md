@@ -13,7 +13,7 @@ from liberty import Liberty
 client = Liberty()
 
 resposta = client.responses.create(
-    model="liberty-<apelido>",
+    model="<modelo>",
     input="Resuma o texto abaixo em uma frase.",
 )
 ```
@@ -24,13 +24,13 @@ import { Liberty } from '@libertyti/ai';
 const client = new Liberty();
 
 const resposta = await client.responses.create({
-  model: 'liberty-<apelido>',
+  model: '<modelo>',
   input: 'Resuma o texto abaixo em uma frase.',
 });
 ```
 
-> Nos exemplos, `liberty-<apelido>` é um marcador. Os apelidos reais que a sua
-> chave alcança saem de `client.models.list()` e da tela Modelos do console.
+> Nos exemplos, `<modelo>` é um marcador. Os modelos que a sua chave alcança
+> saem de `client.models.list()` e da tela Modelos do console.
 
 O `.env` do produto tem uma linha:
 
@@ -49,9 +49,8 @@ da OpenAI com o endereço do gateway e a chave do projeto já resolvidos, então
 toda a superfície continua valendo: `responses`, `chat`, `audio`, `embeddings`,
 streaming e tool calling.
 
-O `model` é o apelido do gateway, não o nome do modelo no provedor. Um apelido
-pode apontar para qualquer provedor que o gateway atenda, e o código do produto
-é o mesmo em todos.
+O `model` é o nome do modelo, o mesmo que ele tem no provedor, e o gateway
+decide para qual provedor mandar. O código do produto é o mesmo em todos.
 
 O README de cada pacote tem o resto: variáveis de ambiente, transcrição ao vivo,
 tempo limite e saída de emergência.
