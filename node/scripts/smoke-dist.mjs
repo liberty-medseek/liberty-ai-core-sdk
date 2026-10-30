@@ -12,7 +12,7 @@
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const ESPERADO = 'https://gateway.libertyti.com.br/v1';
+const ESPERADO = 'https://liberty-ai-core-dev.libertyti.com.br/v1';
 const METODOS = ['transcribeStream', 'realtimeURL', 'realtimeHeaders', 'responses', 'embeddings'];
 
 const falhas = [];

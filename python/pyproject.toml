@@ -14,7 +14,9 @@ keywords = ["liberty", "gateway", "llm", "openai-compatible"]
 dynamic = ["version"]
 # `websockets` entra aqui, e não num extra, para a sessão ao vivo funcionar
 # com um `pip install` só. São ~200 kB puros em Python, sem binário.
-dependencies = ["openai>=2,<3", "websockets>=13"]
+# `openai` cobre a 2.x e a 3.x: a suíte roda nas duas. Teto na próxima major
+# porque é a superfície dela que o `Liberty` herda.
+dependencies = ["openai>=2,<4", "websockets>=13"]
 
 classifiers = [
   "Development Status :: 4 - Beta",

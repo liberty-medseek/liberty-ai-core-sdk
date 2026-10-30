@@ -109,7 +109,7 @@ def test_nao_sobrescreve_a_property_da_openai() -> None:
 def test_realtime_troca_o_esquema() -> None:
     client = Liberty(api_key=CHAVE)
     assert client.realtime_url() == (
-        "wss://gateway.libertyti.com.br/v1/realtime?intent=transcription"
+        "wss://liberty-ai-core-dev.libertyti.com.br/v1/realtime?intent=transcription"
     )
     assert client.realtime_headers() == {"Authorization": f"Bearer {CHAVE}"}
 
@@ -124,7 +124,7 @@ def _erro(codigo: str, mensagem: str) -> httpx.HTTPStatusError:
 
     resposta = httpx.Response(
         403,
-        request=httpx.Request("POST", "https://gateway.libertyti.com.br/v1/responses"),
+        request=httpx.Request("POST", "https://liberty-ai-core-dev.libertyti.com.br/v1/responses"),
         json={"error": {"message": mensagem, "type": codigo, "code": "403"}},
     )
     return APIStatusError(mensagem, response=resposta, body={"error": {"type": codigo, "message": mensagem}})
@@ -169,7 +169,7 @@ def test_a_chamada_sai_para_o_gateway(monkeypatch: pytest.MonkeyPatch) -> None:
     client.responses.create(model="liberty-modelo-a", input="Olá")
 
     (requisicao,) = vistas
-    assert str(requisicao.url) == "https://gateway.libertyti.com.br/v1/responses"
+    assert str(requisicao.url) == "https://liberty-ai-core-dev.libertyti.com.br/v1/responses"
     assert requisicao.headers["authorization"] == f"Bearer {CHAVE}"
     assert requisicao.headers["x-liberty-client"] == f"liberty-python/{__version__}"
 
@@ -214,7 +214,7 @@ def test_lista_os_apelidos_que_a_chave_alcanca() -> None:
         "liberty-modelo-a",
         "liberty-modelo-b",
     ]
-    assert str(vistas[0].url) == "https://gateway.libertyti.com.br/v1/models"
+    assert str(vistas[0].url) == "https://liberty-ai-core-dev.libertyti.com.br/v1/models"
 
 
 def test_with_options_troca_timeout_sem_perder_a_classe() -> None:

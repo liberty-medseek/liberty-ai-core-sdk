@@ -86,7 +86,7 @@ perfil de chamada.
 | Variável | Para que serve |
 |---|---|
 | `LIBERTY_API_KEY` | A chave do projeto. Obrigatória. |
-| `LIBERTY_BASE_URL` | Outro endereço de gateway. Homologação e instalação no cliente. Fora disso, não entra no `.env`. |
+| `LIBERTY_BASE_URL` | Outro endereço de gateway, como o local em `http://localhost:4000/v1`. Fora disso, não entra no `.env`. |
 
 `LIBERTY_GATEWAY_KEY` e `LIBERTY_GATEWAY_URL` são os nomes da primeira geração
 da integração e continuam funcionando. Os nomes novos ganham quando os dois
