@@ -3,7 +3,7 @@
 Cliente Python do Liberty AI Gateway.
 
 ```bash
-pip install 'liberty-ai>=0.1.1'
+pip install 'liberty-ai>=0.2.0'
 ```
 
 ```python

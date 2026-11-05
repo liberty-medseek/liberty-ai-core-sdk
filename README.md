@@ -4,8 +4,8 @@ Clientes do Liberty AI Gateway, em Python e TypeScript.
 
 | Pacote | Diretório | Instalação |
 |---|---|---|
-| `liberty-ai` | [`python/`](python) | `pip install 'liberty-ai>=0.1.1'` |
-| `@libertyti/ai` | [`node/`](node) | `npm install '@libertyti/ai@>=0.1.2'` |
+| `liberty-ai` | [`python/`](python) | `pip install 'liberty-ai>=0.2.0'` |
+| `@libertyti/ai` | [`node/`](node) | `npm install '@libertyti/ai@>=0.2.0'` |
 
 ```python
 from liberty import Liberty
