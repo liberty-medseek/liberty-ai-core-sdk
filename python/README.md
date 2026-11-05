@@ -3,7 +3,7 @@
 Cliente Python do Liberty AI Gateway.
 
 ```bash
-pip install liberty-ai
+pip install 'liberty-ai>=0.1.1'
 ```
 
 ```python
@@ -27,7 +27,7 @@ O `.env` do produto tem uma linha:
 LIBERTY_API_KEY=sk-liberty-...
 ```
 
-A chave nasce na tela Chaves do console, uma por projeto. Ela autentica o
+A chave nasce na tela Projetos do console, uma por projeto. Ela autentica o
 projeto no gateway. As credenciais dos provedores ficam só no ambiente do
 gateway, e o produto não as vê.
 
@@ -80,11 +80,9 @@ perfil de chamada.
 | Variável | Para que serve |
 |---|---|
 | `LIBERTY_API_KEY` | A chave do projeto. Obrigatória. |
-| `LIBERTY_BASE_URL` | Outro endereço de gateway, como o local em `http://localhost:4000/v1`. Fora disso, não entra no `.env`. |
 
-`LIBERTY_GATEWAY_KEY` e `LIBERTY_GATEWAY_URL` são os nomes da primeira geração
-da integração e continuam funcionando. Os nomes novos ganham quando os dois
-estão definidos.
+`LIBERTY_GATEWAY_KEY` é o nome da primeira geração da integração e continua
+funcionando. `LIBERTY_API_KEY` ganha quando os dois estão definidos.
 
 `OPENAI_API_KEY` não serve de reserva: aquela é a credencial do provider e o
 gateway não a aceita. Um projeto que tenha as duas no ambiente continua

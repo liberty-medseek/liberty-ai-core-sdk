@@ -71,13 +71,19 @@ describe('ambiente', () => {
     expect(client.apiKey).toBe(CHAVE);
   });
 
-  it('a env antiga continua valendo', () => {
+  it('a chave antiga continua valendo', () => {
     process.env['LIBERTY_GATEWAY_KEY'] = CHAVE;
-    process.env['LIBERTY_GATEWAY_URL'] = 'https://homolog.example/v1';
-    const client = new Liberty();
-    expect(client.apiKey).toBe(CHAVE);
-    expect(client.baseURL).toBe('https://homolog.example/v1');
+    expect(new Liberty().apiKey).toBe(CHAVE);
   });
+
+  it.each(['LIBERTY_BASE_URL', 'LIBERTY_GATEWAY_URL', 'OPENAI_BASE_URL'])(
+    'nenhuma env troca o endereço (%s)',
+    (nome) => {
+      process.env['LIBERTY_API_KEY'] = CHAVE;
+      process.env[nome] = 'https://homolog.example/v1';
+      expect(new Liberty().baseURL).toBe(BASE_URL);
+    },
+  );
 
   it('a env nova ganha da antiga', () => {
     process.env['LIBERTY_API_KEY'] = CHAVE;
@@ -95,7 +101,7 @@ describe('ambiente', () => {
   it('sem chave, o erro diz o que fazer', () => {
     expect(() => new Liberty()).toThrow(MissingAPIKey);
     expect(() => new Liberty()).toThrow(/LIBERTY_API_KEY/);
-    expect(() => new Liberty()).toThrow(/tela Chaves/);
+    expect(() => new Liberty()).toThrow(/tela Projetos/);
   });
 
   it('não cai na env da OpenAI', () => {
@@ -161,7 +167,7 @@ describe('explain', () => {
 
   it('traduz modelo bloqueado', () => {
     const texto = explain(erro('key_model_access_denied', 'key not allowed to access model'));
-    expect(texto).toContain('tela Chaves');
+    expect(texto).toContain('tela Projetos');
     expect(texto).toContain('key not allowed to access model');
   });
 

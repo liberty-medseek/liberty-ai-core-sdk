@@ -39,12 +39,17 @@ def test_endereco_vem_do_pacote(monkeypatch: pytest.MonkeyPatch) -> None:
     assert client.api_key == CHAVE
 
 
-def test_env_antiga_continua_valendo(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_chave_antiga_continua_valendo(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("LIBERTY_GATEWAY_KEY", CHAVE)
-    monkeypatch.setenv("LIBERTY_GATEWAY_URL", "https://homolog.example/v1")
-    client = Liberty()
-    assert client.api_key == CHAVE
-    assert str(client.base_url).rstrip("/") == "https://homolog.example/v1"
+    assert Liberty().api_key == CHAVE
+
+
+@pytest.mark.parametrize("nome", ["LIBERTY_BASE_URL", "LIBERTY_GATEWAY_URL", "OPENAI_BASE_URL"])
+def test_nenhuma_env_troca_o_endereco(monkeypatch: pytest.MonkeyPatch, nome: str) -> None:
+    monkeypatch.setenv("LIBERTY_API_KEY", CHAVE)
+    monkeypatch.setenv(nome, "https://homolog.example/v1")
+    assert str(Liberty().base_url).rstrip("/") == BASE_URL
+    assert str(AsyncLiberty().base_url).rstrip("/") == BASE_URL
 
 
 def test_env_nova_ganha_da_antiga(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -64,7 +69,7 @@ def test_sem_chave_o_erro_diz_o_que_fazer() -> None:
     with pytest.raises(MissingAPIKey) as capturado:
         Liberty()
     assert "LIBERTY_API_KEY" in str(capturado.value)
-    assert "tela Chaves" in str(capturado.value)
+    assert "tela Projetos" in str(capturado.value)
 
 
 def test_nao_cai_na_env_da_openai(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -133,7 +138,7 @@ def _erro(codigo: str, mensagem: str) -> httpx.HTTPStatusError:
 def test_explain_traduz_modelo_bloqueado() -> None:
     texto = explain(_erro("key_model_access_denied", "key not allowed to access model"))
     assert texto is not None
-    assert "tela Chaves" in texto
+    assert "tela Projetos" in texto
     assert "key not allowed to access model" in texto
 
 

@@ -24,22 +24,21 @@ import { VERSION } from './version.js';
 // Endereço do gateway: o mesmo host do console, com o proxy em `/v1`. Trocar
 // este valor é mudança de contrato: sai versão nova dos dois pacotes, e o
 // console troca junto. Quem instalou a versão antiga continua batendo no
-// endereço antigo até atualizar.
+// endereço antigo até atualizar. Nenhuma variável de ambiente troca o
+// endereço: o produto configura só a chave, e o endereço muda com o pacote.
 export const BASE_URL = 'https://liberty-ai-core-dev.libertyti.com.br/v1';
 
 export const ENV_API_KEY = 'LIBERTY_API_KEY';
-export const ENV_BASE_URL = 'LIBERTY_BASE_URL';
 
 /**
- * Nomes da primeira geração da integração. Continuam valendo para não obrigar
- * um deploy de cada produto no dia em que este pacote entra.
+ * Nome da primeira geração da integração. Continua valendo para não obrigar um
+ * deploy de cada produto no dia em que este pacote entra.
  */
 const ENV_API_KEY_ANTIGA = 'LIBERTY_GATEWAY_KEY';
-const ENV_BASE_URL_ANTIGA = 'LIBERTY_GATEWAY_URL';
 
 const FALTA_CHAVE =
   `Falta a chave do projeto. Defina ${ENV_API_KEY} no ambiente, ou passe apiKey ` +
-  'no construtor. A chave nasce na tela Chaves do console e começa com sk-liberty-.';
+  'no construtor. A chave nasce na tela Projetos do console e começa com sk-liberty-.';
 
 function primeiraEnv(...nomes: string[]): string | undefined {
   for (const nome of nomes) {
@@ -64,10 +63,9 @@ export class Liberty extends OpenAI {
     super({
       ...options,
       apiKey,
-      baseURL:
-        options.baseURL ??
-        primeiraEnv(ENV_BASE_URL, ENV_BASE_URL_ANTIGA) ??
-        BASE_URL,
+      // Constante do pacote, nunca env. `baseURL` no construtor fica para o
+      // teste e para quem desenvolve o próprio gateway.
+      baseURL: options.baseURL ?? BASE_URL,
       // Header do produto ganha, para ele conseguir sobrescrever o nosso.
       defaultHeaders: {
         'x-liberty-client': `liberty-node/${VERSION}`,

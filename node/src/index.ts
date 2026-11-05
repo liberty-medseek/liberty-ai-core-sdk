@@ -14,7 +14,7 @@
  * A chave vem de `LIBERTY_API_KEY`. O endereço já vem no pacote.
  */
 
-export { BASE_URL, ENV_API_KEY, ENV_BASE_URL, Liberty } from './client.js';
+export { BASE_URL, ENV_API_KEY, Liberty } from './client.js';
 export { LibertyError, MissingAPIKey, TranscriptionFailed, explain } from './errors.js';
 export type { TranscribeOptions } from './realtime.js';
 export { VERSION } from './version.js';

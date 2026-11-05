@@ -24,20 +24,19 @@ __all__ = ["AsyncLiberty", "Liberty", "BASE_URL"]
 # Endereço do gateway: o mesmo host do console, com o proxy em `/v1`. Trocar
 # este valor é mudança de contrato: sai versão nova dos dois pacotes, e o
 # console troca junto. Quem instalou a versão antiga continua batendo no
-# endereço antigo até atualizar.
+# endereço antigo até atualizar. Nenhuma variável de ambiente troca o
+# endereço: o produto configura só a chave, e o endereço muda com o pacote.
 BASE_URL = "https://liberty-ai-core-dev.libertyti.com.br/v1"
 
 ENV_API_KEY = "LIBERTY_API_KEY"
-ENV_BASE_URL = "LIBERTY_BASE_URL"
 
-# Nomes da primeira geração da integração. Continuam valendo para não obrigar
-# um deploy de cada produto no dia em que este pacote entra.
+# Nome da primeira geração da integração. Continua valendo para não obrigar um
+# deploy de cada produto no dia em que este pacote entra.
 ENV_API_KEY_ANTIGA = "LIBERTY_GATEWAY_KEY"
-ENV_BASE_URL_ANTIGA = "LIBERTY_GATEWAY_URL"
 
 _FALTA_CHAVE = (
     f"Falta a chave do projeto. Defina {ENV_API_KEY} no ambiente, ou passe "
-    "api_key= no construtor. A chave nasce na tela Chaves do console e começa "
+    "api_key= no construtor. A chave nasce na tela Projetos do console e começa "
     "com sk-liberty-."
 )
 
@@ -58,9 +57,10 @@ def _resolver_chave(api_key: str | None) -> str:
 
 
 def _resolver_endereco(base_url: str | None) -> str:
-    # A URL é constante do cliente, não configuração do produto. A env existe
-    # para homologação e instalação no cliente, e some do .env de produção.
-    return base_url or _primeira_env(ENV_BASE_URL, ENV_BASE_URL_ANTIGA) or BASE_URL
+    # A URL é constante do pacote, não configuração do produto: nenhuma env
+    # entra aqui. `base_url=` no construtor fica para o teste e para quem
+    # desenvolve o próprio gateway.
+    return base_url or BASE_URL
 
 
 def _cabecalhos(extra: Any) -> dict[str, str]:

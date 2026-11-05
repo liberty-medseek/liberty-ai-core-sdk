@@ -29,19 +29,19 @@ class TranscriptionFailed(LibertyError):
 _ACOES: dict[str, str] = {
     "key_model_access_denied": (
         "A chave deste projeto não tem acesso ao modelo pedido. "
-        "Libere o modelo na tela Chaves do console."
+        "Libere o modelo na tela Projetos do console."
     ),
     "budget_exceeded": (
         "O projeto bateu o teto de gasto da janela atual. "
-        "Aumente o teto na tela Chaves ou espere a janela virar."
+        "Aumente o teto na tela Projetos ou espere a janela virar."
     ),
     "rate_limit_error": (
         "O projeto passou do RPM contratado. "
-        "Repita com backoff ou aumente o limite na tela Chaves."
+        "Repita com backoff ou aumente o limite na tela Projetos."
     ),
     "invalid_api_key": (
         "O gateway recusou a chave. "
-        "Confira LIBERTY_API_KEY e, se a chave foi rotacionada, pegue o valor novo na tela Chaves."
+        "Confira LIBERTY_API_KEY e, se a chave foi rotacionada, pegue o valor novo na tela Projetos."
     ),
 }
 

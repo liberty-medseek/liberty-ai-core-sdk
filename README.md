@@ -4,8 +4,8 @@ Clientes do Liberty AI Gateway, em Python e TypeScript.
 
 | Pacote | Diretório | Instalação |
 |---|---|---|
-| `liberty-ai` | [`python/`](python) | `pip install liberty-ai` |
-| `@libertyti/ai` | [`node/`](node) | `npm install @libertyti/ai` |
+| `liberty-ai` | [`python/`](python) | `pip install 'liberty-ai>=0.1.1'` |
+| `@libertyti/ai` | [`node/`](node) | `npm install '@libertyti/ai@>=0.1.2'` |
 
 ```python
 from liberty import Liberty
@@ -38,7 +38,7 @@ O `.env` do produto tem uma linha:
 LIBERTY_API_KEY=sk-liberty-...
 ```
 
-A chave nasce na tela Chaves do console, uma por projeto. Ela autentica o
+A chave nasce na tela Projetos do console, uma por projeto. Ela autentica o
 projeto no gateway. As credenciais dos provedores ficam só no ambiente do
 gateway, e o produto não as vê.
 

@@ -25,13 +25,13 @@ export class TranscriptionFailed extends LibertyError {}
  */
 const ACOES: Record<string, string> = {
   key_model_access_denied:
-    'A chave deste projeto não tem acesso ao modelo pedido. Libere o modelo na tela Chaves do console.',
+    'A chave deste projeto não tem acesso ao modelo pedido. Libere o modelo na tela Projetos do console.',
   budget_exceeded:
-    'O projeto bateu o teto de gasto da janela atual. Aumente o teto na tela Chaves ou espere a janela virar.',
+    'O projeto bateu o teto de gasto da janela atual. Aumente o teto na tela Projetos ou espere a janela virar.',
   rate_limit_error:
-    'O projeto passou do RPM contratado. Repita com backoff ou aumente o limite na tela Chaves.',
+    'O projeto passou do RPM contratado. Repita com backoff ou aumente o limite na tela Projetos.',
   invalid_api_key:
-    'O gateway recusou a chave. Confira LIBERTY_API_KEY e, se a chave foi rotacionada, pegue o valor novo na tela Chaves.',
+    'O gateway recusou a chave. Confira LIBERTY_API_KEY e, se a chave foi rotacionada, pegue o valor novo na tela Projetos.',
 };
 
 function corpo(error: unknown): Record<string, unknown> {
