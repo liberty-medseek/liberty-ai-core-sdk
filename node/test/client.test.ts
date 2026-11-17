@@ -141,7 +141,7 @@ describe('realtime', () => {
   it('troca o esquema', () => {
     const client = new Liberty({ apiKey: CHAVE });
     expect(client.realtimeURL()).toBe(
-      'wss://liberty-ai-core-dev.libertyti.com.br/v1/realtime?intent=transcription',
+      'wss://liberty-ai-core.libertyti.com.br/v1/realtime?intent=transcription',
     );
     expect(client.realtimeHeaders()).toEqual({ Authorization: `Bearer ${CHAVE}` });
   });
@@ -183,7 +183,7 @@ describe('a chamada sai para o gateway', () => {
     // para o gateway e não para api.openai.com.
     process.env['LIBERTY_API_KEY'] = CHAVE;
     const requisicao = await capturar();
-    expect(requisicao.url).toBe('https://liberty-ai-core-dev.libertyti.com.br/v1/responses');
+    expect(requisicao.url).toBe('https://liberty-ai-core.libertyti.com.br/v1/responses');
     expect(requisicao.headers.get('authorization')).toBe(`Bearer ${CHAVE}`);
   });
 });
@@ -224,7 +224,7 @@ describe('exemplos do README', () => {
     for await (const modelo of client.models.list()) ids.push(modelo.id);
 
     expect(ids).toEqual(['liberty-modelo-a', 'liberty-modelo-b']);
-    expect(vistas[0]).toBe('https://liberty-ai-core-dev.libertyti.com.br/v1/models');
+    expect(vistas[0]).toBe('https://liberty-ai-core.libertyti.com.br/v1/models');
   });
 
   it('withOptions troca timeout e retries sem perder a classe', () => {

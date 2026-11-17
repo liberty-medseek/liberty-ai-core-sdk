@@ -3,6 +3,13 @@
 O formato segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e o
 versionamento é [semântico](https://semver.org/lang/pt-BR/).
 
+## [0.3.0]
+
+- O endereço embutido passa a ser `https://liberty-ai-core.libertyti.com.br/v1`,
+  o gateway de produção. As versões anteriores apontam para o ambiente de
+  desenvolvimento; para falar com produção, basta subir o pacote. O `.env` do
+  produto continua só com `LIBERTY_API_KEY`.
+
 ## [0.2.0]
 
 - O endereço do gateway é só o embutido no pacote. Nenhuma variável de ambiente

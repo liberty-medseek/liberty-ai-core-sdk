@@ -3,7 +3,7 @@
 Cliente TypeScript do Liberty AI Gateway.
 
 ```bash
-npm install '@libertyti/ai@>=0.2.0'
+npm install '@libertyti/ai@>=0.3.0'
 ```
 
 ```ts

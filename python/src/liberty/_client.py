@@ -26,7 +26,7 @@ __all__ = ["AsyncLiberty", "Liberty", "BASE_URL"]
 # console troca junto. Quem instalou a versão antiga continua batendo no
 # endereço antigo até atualizar. Nenhuma variável de ambiente troca o
 # endereço: o produto configura só a chave, e o endereço muda com o pacote.
-BASE_URL = "https://liberty-ai-core-dev.libertyti.com.br/v1"
+BASE_URL = "https://liberty-ai-core.libertyti.com.br/v1"
 
 ENV_API_KEY = "LIBERTY_API_KEY"
 

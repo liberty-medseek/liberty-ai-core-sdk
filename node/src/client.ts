@@ -26,7 +26,7 @@ import { VERSION } from './version.js';
 // console troca junto. Quem instalou a versão antiga continua batendo no
 // endereço antigo até atualizar. Nenhuma variável de ambiente troca o
 // endereço: o produto configura só a chave, e o endereço muda com o pacote.
-export const BASE_URL = 'https://liberty-ai-core-dev.libertyti.com.br/v1';
+export const BASE_URL = 'https://liberty-ai-core.libertyti.com.br/v1';
 
 export const ENV_API_KEY = 'LIBERTY_API_KEY';
 
